@@ -55,7 +55,7 @@ public class MMU implements MemorySubSystem {
 	 * @see memory.MemorySubSystem#read(int)
 	 */
 	@Override
-	public Byte read(int address) {
+	public Byte read(int address) throws IOException {
 		
 		int offset = address & offsetbitmask;
 		int page = getPage(address);
@@ -90,30 +90,26 @@ public class MMU implements MemorySubSystem {
 	 * and writing it to memory
 	 * 
 	 * @param address The address the service
+	 * @throws IOException Error reading file
 	 */
-	private void handlePagefault(int address){
+	private void handlePagefault(int address) throws IOException{
 		
-		try {
-			
-			/*
-			 * We need to load from the disk at the start
-			 * of the page. So get the page then multiply
-			 * it by the FRAME_SIZE to work out the starting 
-			 * address
-			 */
-			int frameStartPos = getPage(address) * FRAME_SIZE;
-			Byte[] data = disk.read(frameStartPos, FRAME_SIZE);
-			
-			int page = getPage(address);
-			int frame = pageTable.nextFrame();
 		
-			pageTable.setFrame(page, frame);
-			
-			ram.write(frame, data);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		/*
+		 * We need to load from the disk at the start
+		 * of the page. So get the page then multiply
+		 * it by the FRAME_SIZE to work out the starting 
+		 * address
+		 */
+		int frameStartPos = getPage(address) * FRAME_SIZE;
+		Byte[] data = disk.read(frameStartPos, FRAME_SIZE);
+		
+		int page = getPage(address);
+		int frame = pageTable.nextFrame();
+	
+		pageTable.setFrame(page, frame);
+		
+		ram.write(frame, data);	
 	}
 	
 	/**

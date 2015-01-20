@@ -13,7 +13,13 @@ public class driver {
 
 	public static void main(String[] args) {
 		
-		MemorySubSystem mmu = new MMU();
+		MemorySubSystem mmu = null;
+		try {
+			mmu = new MMU();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 //		mmu.read(27966);
 //		mmu.read(64243);
 
