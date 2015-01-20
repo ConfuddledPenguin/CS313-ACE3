@@ -1,14 +1,44 @@
 package control;
 
-import memory.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+
+import memory.MMU;
+import memory.MemorySubSystem;
 
 public class driver {
 
 	public static void main(String[] args) {
 		
 		MemorySubSystem mmu = new MMU();
-		mmu.read(27966);
-		mmu.read(64243);
+//		mmu.read(27966);
+//		mmu.read(64243);
 
+		File input = new File("files/InputFile.txt");
+		LineNumberReader reader = null;
+		try {
+			reader  = new LineNumberReader(new FileReader(input));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			String line;
+			while((line = reader.readLine()) != null){
+				
+				int address = Integer.parseInt(line);
+				System.out.print(reader.getLineNumber() + " \t");
+				mmu.read(address);
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
