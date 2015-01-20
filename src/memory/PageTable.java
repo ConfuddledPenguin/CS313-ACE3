@@ -1,6 +1,9 @@
 package memory;
 
 import java.util.HashMap;
+import java.util.HashSet;
+
+import memoryAlgorithms.Algorithm;
 
 /**
  * The PageTable keep track of which virtual
@@ -17,11 +20,25 @@ class PageTable {
 	 */
 	private HashMap<Integer, Integer> table;
 	
+	private Algorithm replacementAlgo;
+	private final int NUMBER_OF_FRAMES;
+	
+	/**
+	 * Tracking information
+	 */
+	private HashSet<Integer> freeFrames = new HashSet<Integer>();
+	
 	/**
 	 * The constructor for the PageTable
 	 */
 	public PageTable() {
 		table = new HashMap<Integer, Integer>();
+		replacementAlgo = Global.getAlgorithm(Global.PAGE_ALGO);
+		NUMBER_OF_FRAMES = Global.NUMBER_OF_FRAMES;
+		
+		for(int i = 0; i < NUMBER_OF_FRAMES; i++){
+			freeFrames.add(i);
+		}
 	}
 	
 	/**
@@ -44,7 +61,31 @@ class PageTable {
 	 */
 	public void setFrame(int page, int frame){
 		
+		if(table.containsKey(page)){ //already set
+			return;
+		}
+		
+		
+		replacementAlgo.used(frame);
 		table.put(page, frame);
+	}
+	
+	/**
+	 * Returns the nextFrame
+	 * 
+	 * @return an integer value representing the 
+	 * next frame to use
+	 */
+	public int nextFrame(){
+		
+		if(freeFrames.size() == 0){
+			return replacementAlgo.next();
+		}
+		
+		int free = freeFrames.iterator().next();
+		freeFrames.remove(free);
+		
+		return free;
 	}
 
 }

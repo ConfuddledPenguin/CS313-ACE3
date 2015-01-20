@@ -17,7 +17,7 @@ public class driver {
 //		mmu.read(27966);
 //		mmu.read(64243);
 
-		File input = new File("files/InputFile.txt");
+		File input = new File("files/InputFile_3.txt");
 		LineNumberReader reader = null;
 		try {
 			reader  = new LineNumberReader(new FileReader(input));
@@ -31,9 +31,9 @@ public class driver {
 			while((line = reader.readLine()) != null){
 				
 				int address = Integer.parseInt(line);
-				System.out.print(reader.getLineNumber() + " \t");
-				mmu.read(address);
-				
+//				System.out.print(reader.getLineNumber() + " \t");
+				byte value = mmu.read(address);
+				System.out.println(value);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -19,6 +19,7 @@ class RAM {
 	 */
 	private final int offsetbitmask = Global.offsetbitmask;
 	private final int framebitmask = Global.pagebitmask;
+	private final int NUMBER_OF_FRAMES = Global.NUMBER_OF_FRAMES;
 	
 	/**
 	 * The memory
@@ -57,6 +58,10 @@ class RAM {
 	 * @param bytes the data to write
 	 */
 	public void write(int frameAddress, Byte[] bytes ){
+		
+		if(frameAddress > NUMBER_OF_FRAMES){
+			throw new IndexOutOfBoundsException("Invalid frame");
+		}
 		
 		ram.put(frameAddress, bytes );
 		

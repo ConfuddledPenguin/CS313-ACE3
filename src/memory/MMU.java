@@ -16,7 +16,6 @@ public class MMU implements MemorySubSystem {
 	/** The size of the frames */
 	private final int FRAME_SIZE = 256;
 	/** The total number of  frames */
-	private final int TOTAL_NUMBER_FRAMES = 256;
 	
 	/** These masks are used for extracting the 
 	 *  page and offset information
@@ -28,30 +27,27 @@ public class MMU implements MemorySubSystem {
 	/**
 	 * The components of the memory system
 	 */
-	private PageTable pageTable = new PageTable();
-	private RAM ram = new RAM();
+	private TLB tlb;
+	private PageTable pageTable;
+	private RAM ram;
 	private Disk disk;
-	
-	/**
-	 * Tracking information
-	 */
-	private HashSet<Integer> freeFrames = new HashSet<Integer>();
+	int tlbmiss = 0;
+	int pagemiss = 0;
 	
 	/**
 	 * The constructor for the MMU
+	 * 
+	 * @throws FileNotFoundException Disk cant be found
 	 */
-	public MMU() {
+	public MMU() throws FileNotFoundException {
 		
-		try {
-			disk = new Disk();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//initialise the data
+		new Global();
+		tlb = new TLB();
+		pageTable = new PageTable();
+		ram = new RAM();
 		
-		for(int i = 0; i < TOTAL_NUMBER_FRAMES; i++){
-			freeFrames.add(i);
-		}
+		disk = new Disk();
 		
 	}
 	
@@ -59,25 +55,32 @@ public class MMU implements MemorySubSystem {
 	 * @see memory.MemorySubSystem#read(int)
 	 */
 	@Override
-	public void read(int address) {
+	public Byte read(int address) {
 		
 		int offset = address & offsetbitmask;
 		int page = getPage(address);
 		
-		Integer frame = pageTable.getFrame(page);
+		Integer frame = tlb.getFrame(page);
 		
-		if(frame == null){ //pagefualt
+		if(frame == null){	//TLB miss
 			
-			handlePagefault(address);	
+			frame = pageTable.getFrame(page);
+			
+			if(frame == null){ //pagefualt
+				
+				handlePagefault(address);	
+			}
+			
+			frame = pageTable.getFrame(page);
+			tlb.setFrame(page, frame);
+			
 		}
-		
-		frame = pageTable.getFrame(page);
-		
+				
 		int physicalAddress = (frame << 8) | offset;
 		
-		int value = ram.read(physicalAddress);
+		Byte value = ram.read(physicalAddress);
 		
-		System.out.println(value);
+		return value;
 
 	}
 	
@@ -102,7 +105,7 @@ public class MMU implements MemorySubSystem {
 			Byte[] data = disk.read(frameStartPos, FRAME_SIZE);
 			
 			int page = getPage(address);
-			int frame = nextFrame();
+			int frame = pageTable.nextFrame();
 		
 			pageTable.setFrame(page, frame);
 			
@@ -111,20 +114,6 @@ public class MMU implements MemorySubSystem {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-	}
-	
-	/**
-	 * Returns the nextFrame()
-	 * 
-	 * @return an integer value representing the 
-	 * next frame to use
-	 */
-	private int nextFrame(){
-		
-		int free = freeFrames.iterator().next();
-		freeFrames.remove(free);
-		
-		return free;
 	}
 	
 	/**

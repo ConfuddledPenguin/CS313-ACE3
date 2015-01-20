@@ -13,6 +13,6 @@ public interface MemorySubSystem {
 	 * 
 	 * @param address The address to be read
 	 */
-	public abstract void read(int address);
+	public abstract Byte read(int address);
 
 }
