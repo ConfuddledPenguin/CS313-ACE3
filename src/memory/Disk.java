@@ -27,6 +27,8 @@ class Disk {
 	 */
 	private RandomAccessFile disk;
 	
+	private Stats stats = new Stats();
+	
 	/**
 	 * The constructor
 	 * 
@@ -63,6 +65,7 @@ class Disk {
 			returnBytes[i] = readBytes[i];
 		}
 		
+		stats.updateReadFromDisk(noBytes);
 		return returnBytes;
 	}
 	

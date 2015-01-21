@@ -2,7 +2,8 @@ package memory;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
+
+import memory.Global.algorithm;
 
 /**
  * The MMU (Memory Management Unit) handles the retrieval
@@ -14,8 +15,7 @@ import java.util.HashSet;
 public class MMU implements MemorySubSystem {
 	
 	/** The size of the frames */
-	private final int FRAME_SIZE = 256;
-	/** The total number of  frames */
+	private final int FRAME_SIZE;
 	
 	/** These masks are used for extracting the 
 	 *  page and offset information
@@ -35,27 +35,55 @@ public class MMU implements MemorySubSystem {
 	int pagemiss = 0;
 	
 	/**
+	 * The stats of the systems performance
+	 */
+	private Stats stats = new Stats();
+	
+	/**
 	 * The constructor for the MMU
 	 * 
-	 * @throws FileNotFoundException Disk cant be found
+	 * @param TLBSize The number of entries in the TLB
+	 * @param frameSize The size of a frame
+	 * @param NoFrames The number of frames
+	 * @param TLBalgo The algorithm to use for the TLB
+	 * @param pageAlgo The algorithm to use for the pageTable
+	 * 
+	 * @throws FileNotFoundException Disk not found
 	 */
-	public MMU() throws FileNotFoundException {
+	public MMU(int TLBSize, int frameSize, int NoFrames, algorithm TLBalgo, algorithm pageAlgo) throws FileNotFoundException {
 		
 		//initialise the data
-		new Global();
+		new Global(TLBSize, frameSize, NoFrames, TLBalgo, pageAlgo);
+		
 		tlb = new TLB();
 		pageTable = new PageTable();
 		ram = new RAM();
-		
 		disk = new Disk();
 		
+		FRAME_SIZE = Global.FRAME_SIZE;
 	}
 	
 	/* (non-Javadoc)
 	 * @see memory.MemorySubSystem#read(int)
 	 */
 	@Override
-	public Byte read(int address) throws IOException {
+	public int read(int address) throws IOException {
+		
+		return readVerbose(address)[2];
+
+	}
+	
+	/* (non-Javadoc)
+	 * @see memory.MemorySubSystem#readVerbose(int)
+	 */
+	@Override
+	public int[] readVerbose(int address) throws IOException{
+		
+		//The array to return
+		int returnValues[] = new int[3];
+		returnValues[0] = address;
+		
+		stats.incrementTotalReads();
 		
 		int offset = address & offsetbitmask;
 		int page = getPage(address);
@@ -64,9 +92,13 @@ public class MMU implements MemorySubSystem {
 		
 		if(frame == null){	//TLB miss
 			
+			stats.incrementTLBMisses();
+			
 			frame = pageTable.getFrame(page);
 			
 			if(frame == null){ //pagefualt
+				
+				stats.incrementPageFaults();
 				
 				handlePagefault(address);	
 			}
@@ -77,11 +109,21 @@ public class MMU implements MemorySubSystem {
 		}
 				
 		int physicalAddress = (frame << 8) | offset;
+		returnValues[1] = physicalAddress;
 		
 		Byte value = ram.read(physicalAddress);
+		returnValues[2] = value;
 		
-		return value;
-
+		return returnValues;
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see memory.MemorySubSystem#getStats()
+	 */
+	@Override
+	public StatsInterface getStats() {
+		return stats;
 	}
 	
 	/**
