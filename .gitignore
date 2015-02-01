@@ -3,7 +3,7 @@ bin/*
 doc/*
 .classpath
 .project
-files/*
 jars/*
 log/*
 build/*
+build.fxbuild

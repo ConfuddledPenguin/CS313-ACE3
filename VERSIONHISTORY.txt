@@ -1,0 +1,107 @@
+/*******************************************************************************
+Synopsis: 
+	CS313's ACE3 - An emulation of the memory system of a PC.
+
+
+Git repo:
+	Currently private and shall remain so until either after the hand in 
+	deadline, I remember to make it public or I have ran out of private repos.
+	- https://github.com/ConfuddledPenguin/CS313-ACE3
+
+Bugs:
+
+	See github issues
+	- https://github.com/ConfuddledPenguin/CS313-ACE3/issues
+
+
+Author:
+      Thomas Maxwell.
+      201240393
+      gvb12182@uni.strath.ac.uk
+
+Version: 0.9
+ ******************************************************************************/
+
+/*********************** R E V I S I O N   H I S T O R Y ***********************
+
+Version 0.1 -	Started working on the hardware emulation required.
+b4d3b8c
+
+				The basics of the hardware are now in place, such as RAM and a 
+				HDD.
+
+				The virtual address are translated into the required physical
+				address. With the page data being checked against the page table
+				to check if they have already been loaded into memory.
+
+				Page faults have been handled, with the data being read from the
+				disk into memory when a fault occurs.
+
+Version 0.1.1 -	Reading in the input file 
+32265e8
+
+				Program now crudely reads in the input file. At this stage this 
+				is mostly for continued development of the memory system and 
+				will be replaced in the future.
+
+Version 0.2 -	Added the TLB
+034e58d
+
+				Added a TLB into the memory system, this would allow for faster 
+				access.
+
+				By adding the TLB, it was necessary to add in algorithms to 
+				decide on which data to replace.
+
+				As such a new package memoryAlgorithms now exists. This features
+				an interface for communicating with the different algorithms, as 
+				well as three algorithms, FIFO, LRU and Random. These are used 
+				by the TLB in deciding what entry to replace.
+
+				The memory.Globals file has bee updated it now included the 
+				config information for the system (details such as the size of 
+				the TLB and the number of frames) and the system takes the 
+				information from there when starting up. It also contains some 
+				code that is used in several places for example selecting the 
+				replacementAlgorithm.
+
+				Exceptions are now passed back through the interface when the 
+				occur this will allow for graceful error reporting to the user.
+
+				The pageTable has been updated to allow for variable sizes, this
+				means that a page replacement algorithm is also utilised here.
+
+				Updates documentation throughout the project.
+
+				(not included)
+				Created a program to create new input files. This can generate 
+				input files that have differing amounts of spatial locality, 
+				this means the TLB and PageTables miss rates are not basically 
+				100% as with the sample input.
+
+Version 0.3 -	Statistic tracking 
+16458da
+
+				The memory system now provides a way for the callee to view 
+				details about the memory system. It provided access to 
+				information such as the number of pagefaults incurred.
+
+				It also is now fully configurable when it is created so that it 
+				is possible to modifiy the number of frames, and the size of the
+				TLB.
+
+Version 0.9 -	Added a GUI to the application.
+131d8e9
+
+				There are way to many changes to discuss to make any meaningful 
+				commit message.
+
+				The core of the project (src/memory) has not changed 
+				significantly, these means that for the purpose of the 
+				assignment nothing much needs said.
+
+				The GUI was created with javaFX. Why? I wanted to learn it so 
+				thats why. The command line version of the project still exists.
+				(src/textcontrol)
+
+ ******************************************************************************/

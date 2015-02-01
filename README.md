@@ -9,9 +9,19 @@ This aim of this assignment is to gain an understanding of the memory systems cu
 
 To do this a basic emulation of the hardware was created, to which different paging algorithms can be applied to and statistics can be recorded.  
 
-In addition to the above task I wanted to learn javaFX. Since i had just completed this project, and it was still in my head, i decided to skin it.
+In addition to the above task I wanted to learn javaFX. Since I had just completed this project, and it was still in my head, I decided to skin it.
 
-###Authors###
+###Running the program###
+
+There are two main methods present in the source.
+
+Method one is part of the package text control. This starts the terminal version of the application. This version accepts the input file as an argument at runtime.
+
+Method two is part of the package ui. This starts the javaFX thread and is the GUI version of the application. This version allows the user to easily customise the configuration of the memory system.
+
+It is important that the the required files to run this program are included in a folder called files, in the execution directory. These files are required for the application to run. 
+
+###Author###
 
 Thomas Maxwell		- gvb12182@uni.strath.ac.uk
 
