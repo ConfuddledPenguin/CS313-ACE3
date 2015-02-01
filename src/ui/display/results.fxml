@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+	<Pane id="container" AnchorPane.LeftAnchor="10" AnchorPane.TopAnchor="1">
+		<VBox >
+			<GridPane alignment="CENTER" hgap="10" vgap="5">
+				<Label fx:id="configLabel" GridPane.rowIndex="0" GridPane.ColumnIndex="0" GridPane.ColumnSpan="2"></Label>
+				<Label fx:id="configTLBsizeLabel" GridPane.rowIndex="2" GridPane.ColumnIndex="0" GridPane.ColumnSpan="1"></Label>
+				<Label fx:id="configPagesizeLabel" GridPane.rowIndex="2" GridPane.ColumnIndex="1" GridPane.ColumnSpan="1"></Label>
+				<Label fx:id="configInputTypeLabel" GridPane.rowIndex="2" GridPane.ColumnIndex="2" GridPane.ColumnSpan="1"></Label>
+				<Label fx:id="configTLBAlgoLabel" GridPane.rowIndex="3" GridPane.ColumnIndex="0" GridPane.ColumnSpan="1"></Label>
+				<Label fx:id="configPageAlgoLabel" GridPane.rowIndex="3" GridPane.ColumnIndex="1" GridPane.ColumnSpan="1"></Label>
+			</GridPane>
+			<GridPane id="result-grid" alignment="center" hgap="10" vgap="10">
+				<padding><Insets top="5" right="15" bottom="5" left="15"/></padding>
+				 <!-- Since these charts need data we need to create them in
+				 		the controller. So just add panes to stick them in atm -->
+				 <Pane fx:id="TLBChartPane" id="ChartPane" GridPane.rowIndex="1" GridPane.ColumnIndex="0" ></Pane>
+				 <Pane fx:id="PageChartPane" id="ChartPane" GridPane.rowIndex="1" GridPane.ColumnIndex="1" ></Pane>
+			</GridPane>
+			<GridPane alignment="center" hgap="40" vgap="10">
+			 	<Label fx:id="totalReadsLabel" GridPane.rowIndex="0" GridPane.ColumnIndex="0"></Label>
+			 	<Label fx:id="totalBytesReadLabel" GridPane.rowIndex="0" GridPane.ColumnIndex="1"></Label>
+			 	<Label fx:id="totalTLBMissesLabel" GridPane.rowIndex="0" GridPane.ColumnIndex="2"></Label>
+			 	<Label fx:id="totalPageFaultsLabel" GridPane.rowIndex="0" GridPane.ColumnIndex="3"></Label>
+			 	
+			 	<Label fx:id="totalTLBHitsLabel" GridPane.rowIndex="1" GridPane.ColumnIndex="0"></Label>
+			 	<Label fx:id="totalTLBHitRateLabel" GridPane.rowIndex="1" GridPane.ColumnIndex="1"></Label>
+			 	<Label fx:id="totalPageHitsLabel" GridPane.rowIndex="1" GridPane.ColumnIndex="2"></Label>
+			 	<Label fx:id="totalPageHitRateLabel" GridPane.rowIndex="1" GridPane.ColumnIndex="3"></Label>
+			 	
+			 	<Label fx:id="pageLoadsInfo" GridPane.rowIndex="2" GridPane.ColumnIndex="0" GridPane.ColumnSpan="4"></Label>
+			 </GridPane>
+			<BorderPane>
+			 	<padding><Insets top="15" right="236" bottom="10" left="236"/></padding>
+			 	<center>
+			 		<Button fx:id="returnToConfigButton" id="returnButton" text="Return to config"></Button>
+			 	</center>
+			 </BorderPane>
+		</VBox>
+	</Pane>
+</AnchorPane>
+

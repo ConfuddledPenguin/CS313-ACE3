@@ -4,3 +4,6 @@ doc/*
 .classpath
 .project
 files/*
+jars/*
+log/*
+build/*

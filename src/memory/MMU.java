@@ -1,7 +1,11 @@
 package memory;
 
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import memory.Global.algorithm;
 
@@ -15,7 +19,7 @@ import memory.Global.algorithm;
 public class MMU implements MemorySubSystem {
 	
 	/** The size of the frames */
-	private final int FRAME_SIZE;
+	private final int FRAME_SIZE = 256;
 	
 	/** These masks are used for extracting the 
 	 *  page and offset information
@@ -37,30 +41,48 @@ public class MMU implements MemorySubSystem {
 	/**
 	 * The stats of the systems performance
 	 */
-	private Stats stats = new Stats();
+	private Stats stats;
 	
 	/**
 	 * The constructor for the MMU
 	 * 
 	 * @param TLBSize The number of entries in the TLB
-	 * @param frameSize The size of a frame
 	 * @param NoFrames The number of frames
 	 * @param TLBalgo The algorithm to use for the TLB
 	 * @param pageAlgo The algorithm to use for the pageTable
 	 * 
-	 * @throws FileNotFoundException Disk not found
+	 * @throws IOException Error writing to log
 	 */
-	public MMU(int TLBSize, int frameSize, int NoFrames, algorithm TLBalgo, algorithm pageAlgo) throws FileNotFoundException {
+	public MMU(int TLBSize, int NoFrames, algorithm TLBalgo, algorithm pageAlgo) throws IOException {
 		
 		//initialise the data
-		new Global(TLBSize, frameSize, NoFrames, TLBalgo, pageAlgo);
+		new Global(TLBSize, NoFrames, TLBalgo, pageAlgo);
+		stats = new Stats();
+		stats.reset();
+		
+		try{
+			//set up the log
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+			String date = format.format(new Date());
+			File dir = new File("log/");
+			if(!dir.exists()){
+				dir.mkdirs();
+			}
+			File file = new File("log/" + date + ".log");
+			file.createNewFile();
+			Global.log = new BufferedWriter(new FileWriter(file));
+		}catch(IOException e){
+			throw new IOException("Log file exception. Im probably missing write access.");
+		}
 		
 		tlb = new TLB();
 		pageTable = new PageTable();
 		ram = new RAM();
-		disk = new Disk();
-		
-		FRAME_SIZE = Global.FRAME_SIZE;
+		try{
+			disk = new Disk();
+		}catch(IOException e){
+			throw new IOException("Disk missing. Is the files folder present?");
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -78,6 +100,8 @@ public class MMU implements MemorySubSystem {
 	 */
 	@Override
 	public int[] readVerbose(int address) throws IOException{
+		
+		Global.log.write("Logical Address: " + address + "\t\t");
 		
 		//The array to return
 		int returnValues[] = new int[3];
@@ -111,11 +135,19 @@ public class MMU implements MemorySubSystem {
 		int physicalAddress = (frame << 8) | offset;
 		returnValues[1] = physicalAddress;
 		
+		Global.log.write("Physical Address: " + physicalAddress + "\t");
+		
 		Byte value = ram.read(physicalAddress);
+		
+		Global.log.write("Value: " + value + "\t");
 		returnValues[2] = value;
 		
-		return returnValues;
 		
+		Global.log.write("\n");
+		Global.log.flush();
+		
+		stats.addData(address, returnValues);
+		return returnValues;
 	}
 	
 	/* (non-Javadoc)
@@ -136,6 +168,7 @@ public class MMU implements MemorySubSystem {
 	 */
 	private void handlePagefault(int address) throws IOException{
 		
+		Global.log.write("Handling page fault ");
 		
 		/*
 		 * We need to load from the disk at the start
@@ -145,6 +178,7 @@ public class MMU implements MemorySubSystem {
 		 */
 		int frameStartPos = getPage(address) * FRAME_SIZE;
 		Byte[] data = disk.read(frameStartPos, FRAME_SIZE);
+		stats.readPage(frameStartPos);
 		
 		int page = getPage(address);
 		int frame = pageTable.nextFrame();

@@ -1,7 +1,9 @@
 package memory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import memoryAlgorithms.Algorithm;
 
@@ -18,7 +20,7 @@ class PageTable {
 	/**
 	 * The table
 	 */
-	private HashMap<Integer, Integer> table;
+	private Map<Integer, Integer> table;
 	
 	private Algorithm replacementAlgo;
 	private final int NUMBER_OF_FRAMES;
@@ -65,7 +67,14 @@ class PageTable {
 			return;
 		}
 		
+		int pageToRemove = -1;
+		for(Map.Entry<Integer, Integer> entry : table.entrySet()){
+			if(entry.getValue() == frame){
+				pageToRemove = entry.getKey();
+			}
+		}
 		
+		table.remove(pageToRemove);
 		replacementAlgo.used(frame);
 		table.put(page, frame);
 	}
@@ -79,11 +88,25 @@ class PageTable {
 	public int nextFrame(){
 		
 		if(freeFrames.size() == 0){
-			return replacementAlgo.next();
+			try {
+				Global.log.write("using Algorithm to pick frame\t\t\t");
+			} catch (IOException e) {
+				System.err.println("Error writing to log");
+			}
+			int free = replacementAlgo.next();
+			
+			
+			
+			return free;
 		}
 		
 		int free = freeFrames.iterator().next();
 		freeFrames.remove(free);
+		try {
+			Global.log.write("Using frame " + free + "  Free frames left = " + freeFrames.size() + "\t");
+		} catch (IOException e) {
+			System.err.println("Error writing to log");
+		}
 		
 		return free;
 	}

@@ -1,6 +1,7 @@
 package memory;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The main memory of the system
@@ -24,7 +25,7 @@ class RAM {
 	/**
 	 * The memory
 	 */
-	private HashMap<Integer, Byte[]> ram;
+	private Map<Integer, Byte[]> ram;
 	
 	/**
 	 * The constructor for memory

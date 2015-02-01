@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane id="window" xmlns:fx="http://javafx.com/fxml/1">
+	<VBox >
+		<AnchorPane id="windowControls" fx:id="windowControls">
+			<Button id="min" fx:id="min" prefHeight="30.0" prefWidth="34.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="0.0"/>
+			<Button id="close" fx:id="close" prefHeight="30.0" prefWidth="34.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+			<Label id="TitleLabel" fx:id="title" prefWidth="200" text="ACE3 - Virtual Memory" AnchorPane.LeftAnchor="20" AnchorPane.TopAnchor="8"></Label>
+		</AnchorPane>
+		<Pane fx:id="content" id="content">
+			
+		</Pane>
+	</VBox>
+</AnchorPane>

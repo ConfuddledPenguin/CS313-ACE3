@@ -1,0 +1,165 @@
+/*
+ * The css for the window
+ */
+	.root{
+		-fx-background-color: white;
+	}
+	
+	#windowControls{
+		-fx-pref-width: 1000;
+	}
+	
+	#content{
+		-fx-pref-width: 1000;
+		-fx-pref-height: 570;
+		/*-fx-background-color: red;*/
+		-fx-padding: 10;
+		-fx-font-size: 16;
+	}
+	
+	#container{
+		-fx-background-color: white;
+		-fx-pref-width: 980;
+		-fx-pref-height: 550;
+	}
+	
+	#title{
+		-fx-font-size: 22;	
+	}
+
+	/*Window controls */
+	#min, #close {
+		-fx-background-radius: 0;
+	    -fx-border-style: null;
+	    -fx-background-color: null;
+	    -fx-background-repeat:no-repeat;
+	}
+	
+	#min{
+		-fx-background-image:url("./minimize.png");
+	}
+	
+	#min:hover{
+		-fx-background-image:url("./minimize-hover.png");
+	}
+	
+	#close{
+		-fx-background-image:url("./close.png");
+	}
+	
+	#close:hover{
+		-fx-background-image:url("./close-hover.png");
+	}
+
+/*
+ * Global Things
+ */
+
+/*
+ * The config css
+ */
+	#run-button{
+		-fx-background-color: white;
+		-fx-border-style: solid;
+		-fx-border-width: 1;
+		-fx-border-color: #c2c2c2;
+		-fx-pref-width: 508;
+	}
+	
+	#run-button:hover{
+		-fx-background-color: #eeeeee;
+	}
+	
+	/* Tooltips */
+	.tooltip{
+	     -fx-background-radius: 0 0 0 0;
+	}
+	 
+	.page-corner {
+	    -fx-shape: " ";
+	}
+	
+	/*Choice boxes */
+	.choice-box{
+		-fx-background-color: white;
+		-fx-border-style: solid;
+		-fx-border-width: 1;
+		-fx-border-color: #c2c2c2;
+		-fx-pref-width: 200;
+	}
+	
+	.choice-box .context-menu{
+		
+		-fx-pref-width: 200;
+		-fx-effect: dropShadow(gaussian, black, 0,0,0,0);
+	}
+	
+	
+	#choice-box-menu-item:focused{
+	  -fx-background-color: #eeeeee; 
+	}
+	
+	#choice-box-menu-item:focused .label{
+		-fx-text-fill: black;
+	}
+	
+	.root.popup{
+		-fx-background-color: rgba(0,0,0,0.0);
+	}
+	
+	.choice-box .arrow{
+		-fx-background-color: #c2c2c2;
+	}
+
+/*
+ * The results window
+ */
+ 
+ 
+	#ChartPane{
+		-fx-border-top: 1px solid #eeeeee;
+		-fx-pref-width: 475px;
+		-fx-pref-height: 300px;
+	}
+	
+	
+	.chart-legend{
+		-fx-background-color: white;
+	}
+	
+	.pie-legend-symbol{
+		-fx-background-radius: 0;
+	}
+	
+	#returnButton{
+		-fx-background-color: white;
+		-fx-border-style: solid;
+		-fx-border-width: 1;
+		-fx-border-color: #c2c2c2;
+		-fx-pref-width: 508;
+	}
+	
+	#returnButton:hover{
+		-fx-background-color: #eeeeee;
+	}
+	
+/*
+ * Error Window
+ */
+
+	#errorContent{
+		-fx-min-width: 400;
+		-fx-min-height: 80;
+	}
+
+	#errorButton{
+		-fx-background-color: white;
+		-fx-border-style: solid;
+		-fx-border-width: 1;
+		-fx-border-color: #c2c2c2;
+		-fx-pref-width: 40;
+	}
+	
+	#errorButton:hover{
+		-fx-background-color: #eeeeee;
+	}

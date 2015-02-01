@@ -1,5 +1,7 @@
 package memory;
 
+import java.io.BufferedWriter;
+
 import memoryAlgorithms.Algorithm;
 import memoryAlgorithms.FIFO;
 import memoryAlgorithms.LRU;
@@ -24,11 +26,13 @@ public class Global {
 	 * The sizes of the components.
 	 */
 	static int TLB_SIZE;
-	static int FRAME_SIZE;
 	static int NUMBER_OF_FRAMES;
 	
 	static algorithm TLB_ALGO;
 	static algorithm PAGE_ALGO;
+	
+	
+	static BufferedWriter log;
 	
 	/**
 	 * The types of algorithms available
@@ -38,7 +42,25 @@ public class Global {
 	 */
 	public enum algorithm {
 		
-		LRU, FIFO, RANDOM
+		LRU{
+			@Override
+			public String toString() {
+				
+				return "LRU";
+			}
+		}, FIFO{
+			@Override
+			public String toString() {
+
+				return "FIFO";
+			}
+		}, RANDOM{
+			@Override
+			public String toString() {
+
+				return "Random";
+			}
+		}
 		
 	}
 	
@@ -51,10 +73,9 @@ public class Global {
 	 * @param TLBalgo The algorithm to use for the TLB
 	 * @param pageAlgo The algorithm to use for the pageTable
 	 */
-	Global(int TLBSize, int frameSize, int NoFrames, algorithm TLBalgo, algorithm pageAlgo) {
+	Global(int TLBSize, int NoFrames, algorithm TLBalgo, algorithm pageAlgo) {
 		
 		TLB_SIZE = TLBSize;
-		FRAME_SIZE = frameSize;
 		NUMBER_OF_FRAMES = NoFrames;
 		TLB_ALGO = TLBalgo;
 		PAGE_ALGO = pageAlgo;

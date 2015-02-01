@@ -1,8 +1,9 @@
 package memory;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import memoryAlgorithms.*;
+import memoryAlgorithms.Algorithm;
 
 /**
  * The TLB ( Transfer lookaside Buffer) provides quick
@@ -16,7 +17,7 @@ class TLB {
 
 	private final int TLB_SIZE;
 	
-	private HashMap<Integer, Integer> tlb = new HashMap<Integer, Integer>();
+	private Map<Integer, Integer> tlb = new HashMap<Integer, Integer>();
 	private Algorithm replacementAlgo;
 	
 	/**

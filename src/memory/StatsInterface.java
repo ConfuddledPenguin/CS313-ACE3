@@ -1,5 +1,7 @@
 package memory;
 
+import java.util.List;
+
 public interface StatsInterface {
 
 	/**
@@ -39,6 +41,34 @@ public interface StatsInterface {
 	public abstract int getPageHits();
 
 	/**
+	 * Returns the data for that address
+	 * 
+	 * It returns an array of int that contain three values.
+	 * the first being the address to read from,
+	 * the second being the physical address in main memory that was read from,
+	 * the third being the actual value stored in the address. 
+	 * 
+	 * @param address The address to read.
+	 * @return The array of values. where array[0] is the address read from,
+	 * array[1] is the physical address, array[2] is the value read
+	 */
+	public abstract int[] getData(int address);
+	
+	/**
+	 * Returns the data;
+	 * 
+	 * It returns an ArrayList of arrays of int that contain three values.
+	 * the first being the address to read from,
+	 * the second being the physical address in main memory that was read from,
+	 * the third being the actual value stored in the address. 
+	 * 
+	 * @param address The address to read.
+	 * @return The array of values. where array[0] is the address read from,
+	 * array[1] is the physical address, array[2] is the value read
+	 */
+	public abstract List<Integer[]> getData();
+	
+	/**
 	 * Returns the number of TLB hits
 	 * 
 	 * @return this.TLBHits
@@ -58,5 +88,27 @@ public interface StatsInterface {
 	 * @return This.TLBHitPerc
 	 */
 	public abstract double getPageHitPercentage();
+	
+	/**
+	 * Returns the pages that where loaded the
+	 * most often
+	 * 
+	 * @return The pages loaded most often
+	 */
+	public List<Integer> getMostLoadedPages();
+	
+	/**
+	 * Returns the max number of times a page was loaded
+	 * 
+	 * @return The value
+	 */
+	public int getMaxTimesAPageWasLoaded();
+	
+	/**
+	 * Returns the number of pages loaded the max times
+	 * 
+	 * @return The value
+	 */
+	public int getNumberOfPagesLoadedMaxTimes();
 
 }
