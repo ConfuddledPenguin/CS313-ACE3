@@ -9,6 +9,8 @@ This aim of this assignment is to gain an understanding of the memory systems cu
 
 To do this a basic emulation of the hardware was created, to which different paging algorithms can be applied to and statistics can be recorded.  
 
+In addition to the above task I wanted to learn javaFX. Since i had just completed this project, and it was still in my head, i decided to skin it.
+
 ###Authors###
 
 Thomas Maxwell		- gvb12182@uni.strath.ac.uk
