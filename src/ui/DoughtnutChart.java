@@ -15,7 +15,13 @@ import javafx.scene.shape.Circle;
  * hence I have borrowed from this post, because why reinvent the wheel
  * when its not really the assignment and the code is in the public domain.
  * 
+ * The creator can be found here
  * http://stackoverflow.com/questions/24121580/can-piechart-from-javafx-be-displayed-as-a-doughnut
+ * 
+ * This class created Doughnut charts. These are hollow pie charts.
+ * 
+ * It achieves this by wrapping the pi charts in a wrapper (this class)
+ * Then a circle is places in the centre of the pie chart.
  */
 public class DoughtnutChart extends PieChart{
 

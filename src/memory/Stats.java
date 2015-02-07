@@ -31,6 +31,10 @@ class Stats implements StatsInterface {
 	private int maxValue = 0;
 	private boolean statsUpdated = true;
 	
+	/**
+	 * This resets the values. Needed because they
+	 * are stored statically.
+	 */
 	void reset() {
 		data = new ArrayList<Integer[]>();
 		totalReads = 0;
@@ -203,12 +207,10 @@ class Stats implements StatsInterface {
 		return new BigDecimal(p).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 	
-	/**
-	 * Returns the pages that where loaded the
-	 * most often
-	 * 
-	 * @return The pages loaded most often
+	/* (non-Javadoc)
+	 * @see memory.StatsInterface#getMostLoadedPages()
 	 */
+	@Override
 	public List<Integer> getMostLoadedPages(){
 		
 		if(statsUpdated || maxLoadedPages == null){
@@ -219,11 +221,10 @@ class Stats implements StatsInterface {
 		return Collections.unmodifiableList(maxLoadedPages);
 	}
 	
-	/**
-	 * Returns the max number of times a page was loaded
-	 * 
-	 * @return The value
+	/* (non-Javadoc)
+	 * @see memory.StatsInterface#getMaxTimesAPageWasLoaded()
 	 */
+	@Override
 	public int getMaxTimesAPageWasLoaded(){
 		
 		if(statsUpdated || maxLoadedPages == null){
@@ -234,11 +235,10 @@ class Stats implements StatsInterface {
 		
 	}
 	
-	/**
-	 * Returns the number of pages loaded the max times
-	 * 
-	 * @return The value
+	/* (non-Javadoc)
+	 * @see memory.StatsInterface#getNumberOfPagesLoadedMaxTimes()
 	 */
+	@Override
 	public int getNumberOfPagesLoadedMaxTimes(){
 		
 		if(statsUpdated || maxLoadedPages == null){

@@ -176,9 +176,9 @@ public class MMU implements MemorySubSystem {
 		 * it by the FRAME_SIZE to work out the starting 
 		 * address
 		 */
-		int frameStartPos = getPage(address) * FRAME_SIZE;
-		Byte[] data = disk.read(frameStartPos, FRAME_SIZE);
-		stats.readPage(frameStartPos);
+		int pageStartPos = getPage(address) * FRAME_SIZE;
+		Byte[] data = disk.read(pageStartPos, FRAME_SIZE);
+		stats.readPage(pageStartPos);
 		
 		int page = getPage(address);
 		int frame = pageTable.nextFrame();

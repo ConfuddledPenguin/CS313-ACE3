@@ -14,6 +14,12 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * The error display 
+ * 
+ * @author Tom Maxwell
+ *
+ */
 public class Error {
 
 	private String msg;
@@ -22,6 +28,13 @@ public class Error {
 	@FXML private Label msgLabel;
 	@FXML private Button errorButton;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param msg The message to show
+	 * @param exit whether the program should close
+	 * after usr clicks "OK"
+	 */
 	public Error(String msg, boolean exit) {
 		this.msg = msg;
 		this.exit = exit;
@@ -29,6 +42,9 @@ public class Error {
 		display();
 	}
 	
+	/**
+	 * Show the error message
+	 */
 	private void display() {
 		
 		Stage error = new Stage();

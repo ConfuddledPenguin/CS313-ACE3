@@ -1,5 +1,11 @@
 package ui;
 
+/**
+ * Used to store the config the user entered
+ * 
+ * @author Tom MAxwell
+ *
+ */
 class Config{
 	
 	public int noFrames;

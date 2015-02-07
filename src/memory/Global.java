@@ -28,17 +28,22 @@ public class Global {
 	static int TLB_SIZE;
 	static int NUMBER_OF_FRAMES;
 	
+	/**
+	 * The Algorithms of the components.
+	 */
 	static algorithm TLB_ALGO;
 	static algorithm PAGE_ALGO;
 	
-	
+	/**
+	 * A terrible but quick way of created a global
+	 * logging file.
+	 * 
+	 * There are wonderful libs to this kind thing
+	 */
 	static BufferedWriter log;
 	
 	/**
 	 * The types of algorithms available
-	 * 
-	 * @author Tom Maxwell
-	 *
 	 */
 	public enum algorithm {
 		

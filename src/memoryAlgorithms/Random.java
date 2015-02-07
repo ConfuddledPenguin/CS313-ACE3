@@ -19,10 +19,7 @@ public class Random implements Algorithm{
 	@Override
 	public void used(int address) {
 		
-		used.add(address);
-		
-		Collections.shuffle(used);
-		
+		used.add(address);		
 	}
 
 	/* (non-Javadoc)
@@ -30,6 +27,14 @@ public class Random implements Algorithm{
 	 */
 	@Override
 	public int next() {
+		
+		/*
+		 * Using shuffle is a quick way to
+		 * randomise the list of used frames
+		 * can then pluck the first one off as
+		 * next to use
+		 */
+		Collections.shuffle(used);
 		
 		return used.removeFirst();
 	

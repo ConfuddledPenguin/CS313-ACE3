@@ -11,6 +11,12 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import memory.Global;
 
+/**
+ * This is the controller for the config view
+ * 
+ * @author Tom Maxwell
+ *
+ */
 public class ConfigController {
 	
 	@FXML private ChoiceBox<String> TLBSize;
@@ -35,11 +41,23 @@ public class ConfigController {
 	    }
 	};
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param home The window
+	 * @param scene The scene we have populated
+	 */
 	public ConfigController(Home home, Scene scene) {
 		this.home = home;
 		this.scene = scene;
 	}
 
+	/**
+	 * Called when the FXMl file has been loaded
+	 * 
+	 * This does basic setup that is overly difficult to achieve
+	 * in the FXML files
+	 */
 	public void FXMLLoaded(){
 		
 		//Configure the choice boxes. Its easier here then in the fxml.
@@ -100,6 +118,9 @@ public class ConfigController {
 		});
 	}
 	
+	/**
+	 * Method to handle the run button being pressed
+	 */
 	private void handleRunButton(){
 		
 		Config config = new Config();
@@ -128,6 +149,12 @@ public class ConfigController {
 		
 	}
 	
+	/**
+	 * A method to get the algo from the users choice
+	 * 
+	 * @param algo The string representation of the algo
+	 * @return The ENUM representation of the algo
+	 */
 	private Global.algorithm getAlgo(String algo){
 		
 		if(algo.equals(Global.algorithm.FIFO.toString())){

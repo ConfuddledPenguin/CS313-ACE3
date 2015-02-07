@@ -6,7 +6,7 @@ import java.util.Map;
 import memoryAlgorithms.Algorithm;
 
 /**
- * The TLB ( Transfer lookaside Buffer) provides quick
+ * The TLB ( Transfer Lookaside Buffer) provides quick
  * access to the most used pages in memory, where most
  * used is dependent on the algorithm chosen.
  * 

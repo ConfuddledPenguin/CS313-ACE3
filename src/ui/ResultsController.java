@@ -14,6 +14,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import memory.StatsInterface;
 
+/**
+ * The results controller
+ * 
+ * @author Tom Maxwell
+ *
+ */
 public class ResultsController {
 	
 	//ui elements
@@ -57,6 +63,14 @@ public class ResultsController {
 	    }
 	};
 	
+	/**
+	 * The constructor
+	 * 
+	 * @param home The window
+	 * @param scene The scene where are in charge off
+	 * @param stats The stats from the memory systems performance
+	 * @param config The config ran
+	 */
 	public ResultsController(Home home, Scene scene, StatsInterface stats, Config config) {
 		this.home = home;
 		this.scene = scene;
@@ -64,6 +78,9 @@ public class ResultsController {
 		this.config = config;
 	}
 	
+	/**
+	 * Show the results
+	 */
 	public void display(){
 		
 		//Using a grid for this would have bee cleaner but more effort. Hence all the info was thrown in one label spaced using tabs.

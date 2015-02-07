@@ -31,6 +31,14 @@ import memory.MMU;
 import memory.MemorySubSystem;
 import memory.StatsInterface;
 
+/**
+ * The main class for the ui version. 
+ * 
+ * This handles the window and content switching
+ * 
+ * @author Tom Maxwell
+ *
+ */
 public class Home extends Application {
 	
 	private Stage stage;
@@ -143,6 +151,9 @@ public class Home extends Application {
 		
 	}
 	
+	/**
+	 * Show the config
+	 */
 	private void showConfig(){
 		
 		FadeTransition ft;
@@ -185,6 +196,11 @@ public class Home extends Application {
 		ft.play();
 	}
 	
+	/**
+	 * Show the results
+	 * 
+	 * @param config the config that was run
+	 */
 	private void showResults(Config config){
 		
 		Node current = content.getChildren().get(0);
@@ -262,7 +278,9 @@ public class Home extends Application {
 	}
 	
 	/**
-	 * The main method fot he javaFX application.
+	 * The main method for the javaFX application.
+	 * 
+	 * This calls launch which is how a javaFX app starts
 	 * 
 	 * @param args none
 	 */
@@ -270,11 +288,19 @@ public class Home extends Application {
 		launch(args);
 	}
 	
+	/**
+	 * Lets the window know to show the config
+	 */
 	void goBackToConfig(){
 		
 		showConfig();
 	}
 	
+	/**
+	 * Called when a config has been entered by a user
+	 * 
+	 * @param config the users config
+	 */
 	void configEntered(Config config){
 		
 		MemorySubSystem mmu = null;
