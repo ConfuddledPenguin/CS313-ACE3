@@ -20,7 +20,7 @@ public class LRU implements Algorithm {
 	public void used(int address) {
 		
 		if(used.contains(address)){
-			used.remove(address);
+			used.remove( (Integer) address);
 		}
 		used.add(address);
 	}

@@ -121,4 +121,10 @@ Version 0.92-	I am an idiot
 				printed out where massively wrong. Honestly not sure how it took
 				me so long to notice this.
 
+Version 0.93- 	Bug fix
+
+				The muppet that is me strikes again. I forgot to let the LRU
+				algo when I was using stuff correctly. As such it was basically
+				FIFO.
+
  ******************************************************************************/

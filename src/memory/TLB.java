@@ -44,6 +44,7 @@ class TLB {
 	 */
 	public Integer getFrame(int page) {
 		
+		replacementAlgo.used(page);
 		return tlb.get(page);
 
 	}

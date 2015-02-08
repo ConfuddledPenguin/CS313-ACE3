@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import memoryAlgorithms.Algorithm;
 
@@ -51,6 +52,7 @@ class PageTable {
 	 */
 	public Integer getFrame(int page){
 		
+		replacementAlgo.used(page);
 		return table.get(page);
 	}
 	
@@ -75,7 +77,7 @@ class PageTable {
 		}
 		
 		table.remove(pageToRemove);
-		replacementAlgo.used(frame);
+		replacementAlgo.used(page);
 		table.put(page, frame);
 	}
 	
@@ -95,7 +97,15 @@ class PageTable {
 			}
 			int free = replacementAlgo.next();
 			
+			System.out.println(free);
 			
+			for(Entry<Integer, Integer> mapping: table.entrySet()){
+				
+				if(free == mapping.getKey()){
+					System.out.println("remove - " + mapping.getValue());
+					return mapping.getValue();
+				}
+			}
 			
 			return free;
 		}
