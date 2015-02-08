@@ -100,8 +100,25 @@ Version 0.9 -	Added a GUI to the application.
 				significantly, these means that for the purpose of the 
 				assignment nothing much needs said.
 
+				A log file has been created and is stored is logs/. This means
+				that it is no longer a requirement to output a wall of text with
+				details about the values. Now the statistics are reported to the
+				user. If the user wishes to see further details about the
+				execution they may check the log file generated with the 
+				timestamp of execution.
+
 				The GUI was created with javaFX. Why? I wanted to learn it so 
 				thats why. The command line version of the project still exists.
 				(src/textcontrol)
+
+Version 0.91-	Updated commentary and read me
+
+				Just a little checking of the commentary.
+
+Version 0.92-	I am an idiot
+
+				Fixed a bug where I was doing maths wrong. As such the stats
+				printed out where massively wrong. Honestly not sure how it took
+				me so long to notice this.
 
  ******************************************************************************/

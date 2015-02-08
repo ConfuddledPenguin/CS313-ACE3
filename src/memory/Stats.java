@@ -176,7 +176,7 @@ class Stats implements StatsInterface {
 	 */
 	@Override
 	public int getPageHits(){
-		return totalReads - totalPageFaults;
+		return totalTLBMisses - totalPageFaults;
 	}
 	
 	/* (non-Javadoc)
@@ -202,7 +202,7 @@ class Stats implements StatsInterface {
 	 */
 	@Override
 	public double getPageHitPercentage(){
-		double p = ((double) getPageHits() / totalReads ) * 100;
+		double p = ((double) getPageHits() / totalTLBMisses ) * 100;
 		
 		return new BigDecimal(p).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}

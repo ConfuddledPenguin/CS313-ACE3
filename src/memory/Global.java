@@ -73,7 +73,6 @@ public class Global {
 	 * Initialise the data
 	 * 
 	 * @param TLBSize The number of TLB entries
-	 * @param frameSize The Size of a frame
 	 * @param NoFrames The number of frames
 	 * @param TLBalgo The algorithm to use for the TLB
 	 * @param pageAlgo The algorithm to use for the pageTable

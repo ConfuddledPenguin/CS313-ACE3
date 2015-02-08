@@ -29,7 +29,7 @@ public class Driver {
 	 */
 	public Driver(String filepath) {
 
-		runMemory(16, 128, algorithm.FIFO, algorithm.FIFO, filepath);
+		runMemory(16, 256, algorithm.FIFO, algorithm.FIFO, filepath);
 	}
 	
 	/**
@@ -112,6 +112,7 @@ public class Driver {
 		for(int page: pages){
 			System.out.print(page + ", ");
 		}
+		System.out.println();
 	}
 	
 	/**

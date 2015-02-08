@@ -62,7 +62,6 @@ public interface StatsInterface {
 	 * the second being the physical address in main memory that was read from,
 	 * the third being the actual value stored in the address. 
 	 * 
-	 * @param address The address to read.
 	 * @return The array of values. where array[0] is the address read from,
 	 * array[1] is the physical address, array[2] is the value read
 	 */
